@@ -2,8 +2,11 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/Mantra.MFS100.Testv9032.iml" filepath="$PROJECT_DIR$/.idea/modules/Mantra.MFS100.Testv9032.iml" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/app/Mantra.MFS100.Testv9032.app.iml" filepath="$PROJECT_DIR$/.idea/modules/app/Mantra.MFS100.Testv9032.app.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/Mantra_MFS_100_Biometric.iml" filepath="$PROJECT_DIR$/.idea/modules/Mantra_MFS_100_Biometric.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/app/Mantra_MFS_100_Biometric.app.iml" filepath="$PROJECT_DIR$/.idea/modules/app/Mantra_MFS_100_Biometric.app.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/app/Mantra_MFS_100_Biometric.app.androidTest.iml" filepath="$PROJECT_DIR$/.idea/modules/app/Mantra_MFS_100_Biometric.app.androidTest.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/app/Mantra_MFS_100_Biometric.app.main.iml" filepath="$PROJECT_DIR$/.idea/modules/app/Mantra_MFS_100_Biometric.app.main.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/app/Mantra_MFS_100_Biometric.app.unitTest.iml" filepath="$PROJECT_DIR$/.idea/modules/app/Mantra_MFS_100_Biometric.app.unitTest.iml" />
     </modules>
   </component>
 </project>

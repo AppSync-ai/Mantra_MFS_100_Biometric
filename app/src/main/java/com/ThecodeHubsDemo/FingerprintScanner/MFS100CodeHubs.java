@@ -1,5 +1,8 @@
 package com.ThecodeHubsDemo.FingerprintScanner;
 
+import static android.util.Log.*;
+import static android.util.Log.wtf;
+
 import android.app.Activity;
 import android.content.res.Configuration;
 import android.graphics.Bitmap;
@@ -25,6 +28,7 @@ import java.io.FileOutputStream;
 import java.io.OutputStreamWriter;
 
 public class MFS100CodeHubs extends Activity implements MFS100Event {
+    private static final String TAG = "Hulk";
     private static long Threshold = 1500;
     private static long mLastClkTime = 0;
     byte[] Enroll_Template;
@@ -64,7 +68,7 @@ public class MFS100CodeHubs extends Activity implements MFS100Event {
         try {
             getWindow().setSoftInputMode(3);
         } catch (Exception e) {
-            Log.e("Error", e.toString());
+            e("Error", e.toString());
         }
         try {
             this.mfs100 = new MFS100(this);
@@ -215,7 +219,7 @@ public class MFS100CodeHubs extends Activity implements MFS100Event {
             SetTextOnUIThread("Init success");
             SetLogOnUIThread("Serial: " + this.mfs100.GetDeviceInfo().SerialNo() + " Make: " + this.mfs100.GetDeviceInfo().Make() + " Model: " + this.mfs100.GetDeviceInfo().Model() + "\nCertificate: " + this.mfs100.GetCertification());
         } catch (Exception e) {
-            Toast.makeText(getApplicationContext(), "Init failed, unhandled exception", 1).show();
+            Toast.makeText(getApplicationContext(), "Init failed, unhandled exception", Toast.LENGTH_LONG).show();
             SetTextOnUIThread("Init failed, unhandled exception");
         }
     }
@@ -230,7 +234,7 @@ public class MFS100CodeHubs extends Activity implements MFS100Event {
                 try {
                     FingerData fingerData = new FingerData();
                     int ret = MFS100CodeHubs.this.mfs100.AutoCapture(fingerData, MFS100CodeHubs.this.timeout, MFS100CodeHubs.this.cbFastDetection.isChecked());
-                    Log.e("StartSyncCapture.RET", "" + ret);
+                    e("StartSyncCapture.RET", "" + ret);
                     if (ret != 0) {
                         MFS100CodeHubs.this.SetTextOnUIThread(MFS100CodeHubs.this.mfs100.GetErrorMsg(ret));
                     } else {
@@ -285,7 +289,7 @@ public class MFS100CodeHubs extends Activity implements MFS100Event {
                 SetTextOnUIThread(this.mfs100.GetErrorMsg(dataLen));
             }
         } catch (Exception e) {
-            Log.e("Error", "Extract ANSI Template Error", e);
+            e("Error", "Extract ANSI Template Error", e);
         }
     }
 
@@ -308,7 +312,7 @@ public class MFS100CodeHubs extends Activity implements MFS100Event {
                 SetTextOnUIThread(this.mfs100.GetErrorMsg(dataLen));
             }
         } catch (Exception e) {
-            Log.e("Error", "Extract ISO Image Error", e);
+            e("Error", "Extract ISO Image Error", e);
         }
     }
 
@@ -331,7 +335,7 @@ public class MFS100CodeHubs extends Activity implements MFS100Event {
                 SetTextOnUIThread(this.mfs100.GetErrorMsg(dataLen));
             }
         } catch (Exception e) {
-            Log.e("Error", "Extract WSQ Image Error", e);
+            e("Error", "Extract WSQ Image Error", e);
         }
     }
 
@@ -346,7 +350,7 @@ public class MFS100CodeHubs extends Activity implements MFS100Event {
             SetTextOnUIThread("Uninit Success");
             this.lastCapFingerData = null;
         } catch (Exception e) {
-            Log.e("UnInitScanner.EX", e.toString());
+            e("UnInitScanner.EX", e.toString());
         }
     }
 
@@ -410,6 +414,7 @@ public class MFS100CodeHubs extends Activity implements MFS100Event {
     /* access modifiers changed from: private */
     /* access modifiers changed from: public */
     private void SetTextOnUIThread(final String str) {
+        wtf("Hulk-" + getClass().getName() + "-", "str : " + str);
         this.lblMessage.post(new Runnable() {
             /* class MFS100Test.AnonymousClass3 */
 
@@ -426,6 +431,7 @@ public class MFS100CodeHubs extends Activity implements MFS100Event {
     /* access modifiers changed from: private */
     /* access modifiers changed from: public */
     private void SetLogOnUIThread(final String str) {
+        wtf("Hulk-" + getClass().getName() + "-", "str : " + str);
         this.txtEventLog.post(new Runnable() {
             /* class MFS100Test.AnonymousClass4 */
 
@@ -475,6 +481,7 @@ public class MFS100CodeHubs extends Activity implements MFS100Event {
 
     @Override // com.mantra.mfs100.MFS100Event
     public void OnDeviceAttached(int vid, int pid, boolean hasPermission) {
+        wtf("Hulk-" + getClass().getName() + "-", "pid : " + pid);
         if (SystemClock.elapsedRealtime() - this.mLastAttTime >= Threshold) {
             this.mLastAttTime = SystemClock.elapsedRealtime();
             if (!hasPermission) {
@@ -494,6 +501,7 @@ public class MFS100CodeHubs extends Activity implements MFS100Event {
                     }
                 } else if (pid == 4101) {
                     int ret2 = this.mfs100.Init();
+//                    w(TAG, "OnDeviceAttached: ret2 : " + ret2);
                     if (ret2 == 0) {
                         showSuccessLog("Without Key");
                     } else {
@@ -528,7 +536,7 @@ public class MFS100CodeHubs extends Activity implements MFS100Event {
     public void OnHostCheckFailed(String err) {
         try {
             SetLogOnUIThread(err);
-            Toast.makeText(getApplicationContext(), err, 1).show();
+            Toast.makeText(getApplicationContext(), err, Toast.LENGTH_LONG).show();
         } catch (Exception e) {
         }
     }
